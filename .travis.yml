@@ -1,0 +1,18 @@
+sudo: required
+services:
+  - docker
+before_install:
+  - docker build -t nishanprime/react-test -f ./cleint/Dockerfile.dev
+script:
+  - docker run -r CI=true nishanprime/react-test npm test
+
+after_success:
+  - docker build -t nishanprime/multi-client ./client 
+  - docker build -t nishanprime/multi-nginx ./nginx 
+  - docker build -t nishanprime/multi-server ./server 
+  - docker build -t nishanprime/multi-qorker ./qorker 
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  -docker push nishanprime/multi-client
+  -docker push nishanprime/multi-nginx
+  -docker push nishanprime/multi-server
+  -docker push nishanprime/multi-worker
