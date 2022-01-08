@@ -12,7 +12,7 @@ after_success:
   - docker build -t nishanprime/multi-server ./server 
   - docker build -t nishanprime/multi-qorker ./qorker 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  -docker push nishanprime/multi-client
-  -docker push nishanprime/multi-nginx
-  -docker push nishanprime/multi-server
-  -docker push nishanprime/multi-worker
+  - docker push nishanprime/multi-client
+  - docker push nishanprime/multi-nginx
+  - docker push nishanprime/multi-server
+  - docker push nishanprime/multi-worker
